@@ -1,0 +1,518 @@
+/* กำหนดตัวแปรสีและฟอนต์ (CSS Variables) */
+:root {
+    --primary-blue: #2B54A1;
+    --primary-green: #5DB065;
+    --bg-color: #F8F9FA;
+    --card-bg: #FFFFFF;
+    --text-main: #333333;
+    --text-muted: #666666;
+    --border-color: #E2E8F0;
+    
+    --aqi-blue: #42A5F5;
+    --aqi-green: #66BB6A;
+    --aqi-yellow: #FFEE58;
+    --aqi-orange: #FFA726;
+    --aqi-red: #EF5350;
+    
+    --font-family: 'Kanit', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-family);
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    overflow-x: hidden;
+}
+
+/* Utilities */
+.text-blue { color: var(--primary-blue); }
+.text-green { color: var(--primary-green); }
+.text-yellow { color: var(--aqi-yellow); }
+.text-orange { color: var(--aqi-orange); }
+.text-gray { color: var(--text-muted); }
+
+/* Buttons */
+.btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    transition: 0.3s;
+}
+.btn-primary { background-color: var(--primary-blue); color: white; }
+.btn-primary:hover { background-color: #1c3c7a; }
+.btn-outline { background-color: white; color: var(--primary-blue); border: 1px solid var(--primary-blue); }
+.full-width { width: 100%; margin-top: 15px; }
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+.logo-area { display: flex; align-items: center; gap: 10px; }
+.logo-area i { font-size: 30px; }
+.logo-text { font-size: 20px; font-weight: 700; color: var(--primary-blue); line-height: 1; }
+.logo-subtext { font-size: 10px; color: var(--text-muted); line-height: 1.2; }
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-muted);
+    margin: 0 15px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: 0.3s;
+}
+.nav-links a.active, .nav-links a:hover { color: var(--primary-blue); }
+
+.right-menu { display: flex; align-items: center; gap: 20px; }
+.clock { font-weight: 600; font-size: 14px; color: var(--primary-blue); }
+.school-logo { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary-blue); }
+.lang-switch { display: flex; align-items: center; gap: 5px; font-size: 14px; cursor: pointer; }
+.flag { width: 20px; border-radius: 3px; }
+.mobile-menu-btn { display: none; background: none; border: none; font-size: 20px; cursor: pointer; }
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(to right, #E6F0FA 40%, transparent 100%);
+    padding: 60px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+.hero-title { font-size: 42px; font-weight: 700; color: var(--text-main); margin-bottom: 15px; }
+.hero-desc { font-size: 16px; color: var(--text-muted); margin-bottom: 30px; }
+.hero-buttons { display: flex; gap: 15px; }
+.placeholder-graphic { width: 400px; height: 250px; background: #ddd; display: flex; align-items: center; justify-content: center; border-radius: 15px; }
+
+/* Dashboard Grid */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 300px 1fr 300px;
+    gap: 20px;
+    padding: 20px 40px;
+}
+.card { background: var(--card-bg); padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+.card h3 { font-size: 16px; margin-bottom: 15px; color: var(--text-main); }
+.card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+.card-header a { font-size: 12px; text-decoration: none; color: var(--primary-blue); }
+
+/* AQI Card */
+.aqi-main { padding: 20px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; color: white; margin-bottom: 20px; }
+.green-bg { background-color: var(--aqi-green); }
+.aqi-score h2 { font-size: 48px; line-height: 1; }
+.aqi-status { text-align: right; }
+.aqi-status i { font-size: 30px; }
+.pollutant-item { display: flex; align-items: center; justify-content: space-between; font-size: 14px; margin-bottom: 10px; }
+.bar { height: 4px; border-radius: 2px; width: 50px; }
+.green-bar { background-color: var(--aqi-green); }
+.update-time { font-size: 12px; color: var(--text-muted); text-align: center; margin-top: 15px; }
+
+/* Map Card */
+.map-placeholder { height: 350px; background: #e0e0e0; border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; }
+.location-alert { background: rgba(255,255,255,0.9); padding: 10px; border-radius: 8px; margin-top: 10px; font-size: 12px; text-align: center; width: 80%; }
+.legend { margin-top: 15px; font-size: 12px; }
+.legend-items { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 5px; }
+.dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; }
+.dot.blue { background: var(--aqi-blue); }
+.dot.green { background: var(--aqi-green); }
+.dot.yellow { background: var(--aqi-yellow); }
+.dot.orange { background: var(--aqi-orange); }
+.dot.red { background: var(--aqi-red); }
+
+/* Right Column */
+.right-column { display: flex; flex-direction: column; gap: 20px; }
+.nearby-list { list-style: none; }
+.nearby-list li { display: flex; justify-content: space-between; font-size: 12px; padding: 10px 0; border-bottom: 1px solid var(--border-color); }
+.weather-content { display: flex; align-items: center; justify-content: space-between; }
+.temp h2 { font-size: 32px; }
+.weather-details p { font-size: 12px; color: var(--text-muted); margin-bottom: 5px; }
+
+/* Floating Widget */
+.floating-contact { position: fixed; bottom: 20px; right: 20px; background: var(--primary-blue); color: white; padding: 12px 20px; border-radius: 30px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 999; }
+.hidden { display: none; }
+
+/* Responsive สำหรับมือถือและ Tablet */
+@media (max-width: 1024px) {
+    .dashboard-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; /* ซ่อนเมนูไว้รอทำปุ่มเปิดใน JS */ }
+    .mobile-menu-btn { display: block; }
+    .hero-section { flex-direction: column; text-align: center; }
+    .placeholder-graphic { margin-top: 20px; width: 100%; }
+}
+/* ========================================== */
+/* Premium Bottom Cookie Banner Style */
+/* ========================================== */
+.cookie-banner {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(150%); /* ซ่อนไว้ใต้จอตอนแรก */
+    width: calc(100% - 40px);
+    max-width: 850px;
+    
+    /* เอฟเฟกต์กระจกโปร่งแสงสุดหรู (Glassmorphism) */
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    
+    padding: 18px 28px;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.02);
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    z-index: 99999; /* ให้อยู่เหนือทุกสิ่งบนหน้าจอ */
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); /* แอนิเมชันแบบนุ่มนวล */
+}
+
+/* คลาสสำหรับการสั่งให้สไลด์ขึ้นมา */
+.cookie-banner.show {
+    transform: translateX(-50%) translateY(0);
+}
+
+.cookie-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.cookie-icon-box {
+    background: rgba(43, 84, 161, 0.1);
+    color: var(--primary-blue);
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cookie-text h4 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 2px;
+}
+
+.cookie-text p {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+.cookie-link {
+    color: var(--primary-blue);
+    text-decoration: underline;
+    font-weight: 500;
+}
+
+/* ปุ่มของ Cookie Banner */
+.cookie-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    white-space: nowrap; /* ป้องกันปุ่มตัดบรรทัด */
+}
+
+.btn-cookie-prime {
+    background-color: var(--primary-blue);
+    color: white;
+    font-size: 13.5px;
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-cookie-prime:hover {
+    background-color: #1c3c7a;
+    box-shadow: 0 4px 12px rgba(43, 84, 161, 0.2);
+}
+
+.btn-cookie-text {
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 13.5px;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    transition: 0.2s;
+}
+
+.btn-cookie-text:hover {
+    color: var(--text-main);
+}
+
+/* รองรับหน้าจอโทรศัพท์มือถือ */
+@media (max-width: 768px) {
+    .cookie-banner {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+        bottom: 15px;
+        padding: 16px;
+    }
+    .cookie-actions {
+        justify-content: flex-end;
+        width: 100%;
+    }
+    .btn-cookie-prime {
+        flex: 1;
+        text-align: center;
+    }
+}
+/* ========================================== */
+/* Authentication & Login UI Styles (Append)  */
+/* ========================================== */
+.auth-outer-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 65vh;
+}
+.auth-card {
+    background: white;
+    padding: 35px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+    width: 100%;
+    max-width: 420px;
+    border: 1px solid var(--border-color);
+}
+.auth-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+.auth-header h2 {
+    font-size: 24px;
+    color: var(--primary-blue);
+    font-weight: 600;
+}
+.auth-header p {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 5px;
+}
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+.form-group label {
+    display: block;
+    font-size: 13.5px;
+    font-weight: 500;
+    margin-bottom: 6px;
+    color: var(--text-main);
+}
+.form-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    transition: 0.2s;
+}
+.form-group input:focus {
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(43, 84, 161, 0.1);
+}
+.password-wrapper {
+    position: relative;
+}
+.toggle-password {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+.auth-switch {
+    text-align: center;
+    font-size: 13px;
+    margin-top: 15px;
+}
+.auth-switch a {
+    color: var(--primary-blue);
+    text-decoration: none;
+    font-weight: 500;
+}
+.auth-switch a:hover { text-decoration: underline; }
+.auth-divider {
+    text-align: center;
+    margin: 20px 0;
+    position: relative;
+}
+.auth-divider::before {
+    content: ""; position: absolute; top: 50%; left: 0; width: 100%; height: 1px;
+    background: var(--border-color); z-index: 1;
+}
+.auth-divider span {
+    background: white; padding: 0 15px; font-size: 12px; color: var(--text-muted); position: relative; z-index: 2;
+}
+.google-btn {
+    background: #FFFFFF; color: #555555; border: 1px solid var(--border-color);
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    font-weight: 500; font-size: 14px;
+}
+.google-btn img { width: 18px; height: 18px; }
+.google-btn:hover { background: #F7F9FA; }
+.admin-zone-trigger { text-align: center; margin-top: 25px; }
+.btn-admin-link { background: none; border: none; color: #C0CBD9; font-size: 11px; cursor: pointer; }
+.btn-admin-link:hover { color: var(--text-muted); }
+
+/* สไตล์แสดงผลชื่อย่อยและปุ่มล็อกเอาท์บน Navbar */
+.navbar-user-profile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #F1F5F9;
+    padding: 6px 12px;
+    border-radius: 20px;
+}
+.nav-username-display {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--primary-blue);
+    max-width: 90px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* ตัดคำเป็นจุดไข่ปลา ... */
+}
+.btn-logout-trigger {
+    background: none; border: none; color: #EF5350; font-size: 12px; cursor: pointer; padding-left: 4px;
+}
+/* ========================================== */
+/* Real Map & Geolocation Overlay Styles      */
+/* ========================================== */
+.relative-box {
+    position: relative;
+    overflow: hidden;
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+}
+.permission-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px); z-index: 10;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 25px; transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+.permission-overlay.fade-out {
+    opacity: 0; visibility: hidden;
+}
+.pulse-icon-ring {
+    width: 60px; height: 60px; background: rgba(43, 84, 161, 0.1);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    animation: pulseRing 2s infinite;
+}
+.icon-pulse { font-size: 24px; color: var(--primary-blue); }
+
+@keyframes pulseRing {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(43, 84, 161, 0.4); }
+    70% { transform: scale(1); box-shadow: 0 0 0 15px rgba(43, 84, 161, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(43, 84, 161, 0); }
+}
+
+/* Custom Map Marker (Leaflet) */
+.custom-aqi-marker {
+    display: flex; align-items: center; justify-content: center;
+    width: 36px !important; height: 36px !important; margin-left: -18px; margin-top: -18px;
+    border-radius: 50%; border: 3px solid white; box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    color: white; font-weight: 700; font-size: 13px; font-family: 'Kanit', sans-serif;
+}
+.marker-good { background: #10B981; }  /* สีเขียว */
+.marker-mod { background: #F59E0B; }   /* สีเหลือง */
+.marker-unhealthy { background: #EF4444; } /* สีแดง */
+/* ========================================== */
+/* Additional International AQI Levels        */
+/* ========================================== */
+.marker-orange { background: #F97316; } /* เริ่มมีผลต่อสุขภาพ */
+.marker-purple { background: #A855F7; } /* มีผลต่อสุขภาพมาก */
+.marker-maroon { background: #7F1D1D; } /* อันตรายร้ายแรง */
+/* =========================================
+   CUTE DUST LOADER ANIMATION
+========================================= */
+.dust-loader-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(4px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.3s ease;
+}
+
+/* คลาสสำหรับซ่อน Loader ซึ่งอิงตามโค้ด JS ที่มีอยู่แล้ว */
+.dust-loader-overlay.hidden {
+    display: none;
+    opacity: 0;
+}
+
+/* ตัวฝุ่นกระโดด และมีการยืดหดตัว (Squish & Stretch) ให้ดูนุ่มนิ่ม */
+.dust-bouncer {
+    animation: bounce 0.5s infinite alternate cubic-bezier(0.28, 0.84, 0.42, 1);
+    transform-origin: bottom center;
+}
+
+/* เงาที่จะขยาย/หด ตามความสูงของตัวฝุ่นที่กระโดด */
+.dust-shadow {
+    width: 60px;
+    height: 12px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    margin-top: 5px;
+    animation: shadow-scale 0.5s infinite alternate cubic-bezier(0.28, 0.84, 0.42, 1);
+}
+
+/* Keyframes สำหรับการกระโดดดึ๊งๆ */
+@keyframes bounce {
+    0% { 
+        transform: translateY(0) scaleY(0.85) scaleX(1.15); 
+    }
+    100% { 
+        transform: translateY(-50px) scaleY(1.05) scaleX(0.95); 
+    }
+}
+
+/* Keyframes สำหรับเงา */
+@keyframes shadow-scale {
+    0% { 
+        transform: scale(1.1); 
+        opacity: 0.3; 
+    }
+    100% { 
+        transform: scale(0.4); 
+        opacity: 0.05; 
+    }
+}

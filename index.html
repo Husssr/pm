@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIRWISE - PM2.5 Community Map</title>
+    
+    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/1754/1754705.png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo-area">
+            <i class="fa-solid fa-cloud text-blue"></i>
+            <div>
+                <h1 class="logo-text">AIRWISE</h1>
+                <p class="logo-subtext" data-th="PM2.5 Community Map<br>นครศรีธรรมราช" data-en="PM2.5 Community Map<br>Nakhon Si Thammarat">PM2.5 Community Map<br>นครศรีธรรมราช</p>
+            </div>
+        </div>
+
+        <nav class="nav-links" id="main-nav">
+            <a href="#" class="nav-item active" data-view="home-view"><i class="fa-solid fa-house"></i> <span data-key="nav-home">หน้าแรก</span></a>
+            <a href="#" class="nav-item" data-view="air-view"><i class="fa-solid fa-wind"></i> <span data-key="nav-air">คุณภาพอากาศ</span></a>
+            <a href="#" class="nav-item" data-view="map-view"><i class="fa-solid fa-map-location-dot"></i> <span data-key="nav-map">แผนที่</span></a>
+            <a href="#" class="nav-item" data-view="about-view"><i class="fa-solid fa-circle-info"></i> <span data-key="nav-about">ผู้จัดทำ</span></a>
+            <a href="#" class="nav-item" data-view="join-view" id="user-menu-zone"><i class="fa-solid fa-user-plus"></i> <span data-key="nav-join">เข้าสู่ระบบ</span></a>
+        </nav>
+
+        <div class="right-menu">
+            <div id="realtime-clock" class="clock">00:00:00</div>
+            <a href="https://www.triamudomsouth.ac.th/" target="_blank" class="school-logo-link">
+                <img src="https://img1.pic.in.th/images/images-130ffe55524ce35ad.jpg" alt="เตรียมอุดมศึกษา" class="school-logo">
+            </a>
+            <div class="lang-switch" id="lang-toggle-btn">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_Thailand.svg/320px-Flag_of_Thailand.svg.png" alt="TH" class="flag" id="current-flag"> 
+                <span id="current-lang-text">TH</span> <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <button class="mobile-menu-btn" id="mobile-menu-toggle"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </header>
+
+    <div id="dust-component-loader" class="dust-loader-overlay hidden">
+    <div class="dust-bouncer">
+        <svg width="90" height="90" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M85 55C85 71.5685 71.5685 85 55 85C38.4315 85 25 71.5685 25 55C25 38.4315 38.4315 25 55 25C65.5 25 75 30 80 39C86 42 85 48 85 55Z" fill="#94A3B8"/>
+            <circle cx="28" cy="45" r="15" fill="#94A3B8"/>
+            <circle cx="72" cy="45" r="15" fill="#94A3B8"/>
+            <circle cx="50" cy="25" r="18" fill="#94A3B8"/>
+            <circle cx="38" cy="55" r="4.5" fill="#1E293B"/>
+            <circle cx="62" cy="55" r="4.5" fill="#1E293B"/>
+            <ellipse cx="28" cy="62" rx="5" ry="3" fill="#FFB1C1" opacity="0.8"/>
+            <ellipse cx="72" cy="62" rx="5" ry="3" fill="#FFB1C1" opacity="0.8"/>
+            <path d="M45 64Q50 70 55 64" stroke="#1E293B" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+    </div>
+    <div class="dust-shadow"></div>
+</div>
+
+    <div id="home-view" class="page-view active-view">
+        <section class="hero-section">
+            <div class="hero-content">
+                <h2 class="hero-title" data-key="hero-title">อากาศบริสุทธิ์,<br>ชุมชนสุขภาพดี <i class="fa-solid fa-leaf text-green"></i></h2>
+                <p class="hero-desc" data-key="hero-desc">ร่วมกันเฝ้าระวังฝุ่น PM2.5 เพื่ออากาศที่สะอาดและสุขภาพที่ดีของทุกคนในนครศรีธรรมราช</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary"><i class="fa-solid fa-search"></i> <span data-key="btn-view-air">ดูคุณภาพอากาศตอนนี้</span></button>
+                </div>
+            </div>
+            <div class="hero-graphic">
+                <div class="placeholder-graphic">[ รูปภาพ Graphic โครงงานฝุ่น ]</div>
+                <div class="floating-badge"><i class="fa-solid fa-leaf"></i> <span data-key="badge-text">อากาศดีเริ่มต้นที่เรา</span></div>
+            </div>
+        </section>
+
+        <main class="dashboard-grid">
+            <div class="card aqi-card">
+                <h3 data-key="title-aqi-status">สถานการณ์คุณภาพอากาศเฉลี่ย</h3>
+                <div class="aqi-main green-bg" id="main-aqi-display">
+                    <div class="aqi-score"><span>AQI</span><h2 id="main-aqi-val">--</h2></div>
+                    <div class="aqi-status"><i class="fa-solid fa-face-smile"></i><p id="main-aqi-text" data-key="aqi-good">กำลังโหลด</p></div>
+                </div>
+                <div class="pollutants-list">
+                    <div class="pollutant-item"><span>PM2.5</span> <span id="main-pm25-val">-- µg/m³</span> <div class="bar green-bar"></div></div>
+                    <div class="pollutant-item"><span>PM10</span> <span id="main-pm10-val">-- µg/m³</span> <div class="bar green-bar"></div></div>
+                </div>
+                <p class="update-time"><span data-key="txt-updated">อัปเดตล่าสุด:</span> <span id="real-update-time">กำลังโหลด...</span></p>
+            </div>
+
+            <div class="card map-card" style="padding: 15px;">
+    <h3 data-key="title-map" style="margin-bottom: 15px;">แผนที่คุณภาพอากาศ นครศรีธรรมราช</h3>
+    <div id="real-map-container" style="height: 380px; width: 100%; border-radius: 12px; z-index: 1;"></div>
+    
+    <div class="map-legend" style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #E2E8F0;">
+        <p style="font-size: 13px; font-weight: 600; margin-bottom: 10px; color: #1E293B;">ค่าความเข้มข้น PM2.5 (µg/m³)</p>
+        <div class="legend-items" style="display: flex; flex-wrap: wrap; gap: 15px; font-size: 12px; color: #64748B;">
+            <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background-color: #0ea5e9;"></span> ดีมาก (0-15)
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background-color: #22c55e;"></span> ดี (16-25)
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background-color: #eab308;"></span> ปานกลาง (26-37)
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background-color: #f97316;"></span> เริ่มมีผลกระทบ (38-75)
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background-color: #ef4444;"></span> มีผลกระทบ (76+)
+            </div>
+        </div>
+    </div>
+    </div>
+
+            <div class="right-column">
+                <div class="card nearby-card relative-box" id="nearby-card-container">
+                    <h3 data-key="title-stations">จุดตรวจวัดใกล้คุณ</h3>
+                    
+                    <div id="location-permission-overlay" class="permission-overlay">
+                        <div class="pulse-icon-ring">
+                            <i class="fa-solid fa-location-crosshairs icon-pulse"></i>
+                        </div>
+                        <h4 style="margin: 10px 0 5px; font-size: 15px; color: var(--text-main);">ต้องการเข้าถึงตำแหน่ง</h4>
+                        <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 15px;">เพื่อแสดงคุณภาพอากาศและจุดตรวจวัดที่แม่นยำที่สุดในพื้นที่ปัจจุบันของคุณ</p>
+                        <button id="btn-allow-location-card" class="btn btn-primary" style="font-size: 13px; padding: 10px 20px; border-radius: 30px;">
+                            <i class="fa-solid fa-check"></i> อนุญาตการเข้าถึง
+                        </button>
+                    </div>
+
+                    <ul class="nearby-list hidden" id="real-nearby-list">
+                        </ul>
+                
+        </main>
+
+   
+    <div id="contact-widget" class="floating-contact hidden"><i class="fa-solid fa-comment-dots"></i> ติดต่อฉัน</div>
+
+    <script type="module" src="js/firebase.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
